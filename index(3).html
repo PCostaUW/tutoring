@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PLACEHOLDER — Math, Physics & Engineering Tutoring</title>
+<meta name="description" content="One-on-one tutoring in math, physics, and engineering from two graduate-trained tutors. Book a diagnostic session or jump straight in.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   THEME TOKENS — reskin the whole site here.
+   For a dark theme later: flip --paper/--ink and soften --grid.
+   ============================================================ */
+:root{
+  --paper:        #F7F9FB;   /* page background */
+  --paper-raised: #FFFFFF;   /* cards */
+  --grid:         #DFE8F1;   /* graph-paper lines */
+  --ink:          #14243A;   /* primary text, deep navy */
+  --ink-soft:     #4A5B72;   /* secondary text */
+  --blue:         #1B4B8F;   /* deep-blue accent (links, buttons) */
+  --blue-deep:    #123763;   /* hover / emphasis */
+  --mark:         #FFE066;   /* highlighter yellow */
+  --mark-soft:    #FFF3BF;   /* faint highlighter wash */
+  --line:         #C9D6E4;   /* borders */
+  --ok:           #2B7A4B;
+  --err:          #B3372E;
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body:    "Source Serif 4", Georgia, serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  --maxw: 1080px;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(20,36,58,.06), 0 8px 24px rgba(20,36,58,.07);
+}
+
+*{ box-sizing:border-box; margin:0; }
+html{ scroll-behavior:smooth; }
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *, *::before, *::after{ animation:none !important; transition:none !important; }
+}
+
+body{
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--paper);
+  line-height:1.65;
+  font-size:1.0625rem;
+}
+
+/* Graph-paper backdrop — the site's working surface */
+.gridbg{
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+
+a{ color:var(--blue); text-decoration-thickness:1px; text-underline-offset:2px; }
+a:hover{ color:var(--blue-deep); }
+:focus-visible{ outline:3px solid var(--blue); outline-offset:2px; border-radius:3px; }
+
+img{ max-width:100%; display:block; }
+
+h1,h2,h3{ font-family:var(--font-display); line-height:1.15; letter-spacing:-0.01em; }
+h1{ font-size:clamp(2.2rem, 5.5vw, 3.6rem); font-weight:700; }
+h2{ font-size:clamp(1.5rem, 3.2vw, 2.1rem); font-weight:700; }
+h3{ font-size:1.15rem; font-weight:700; }
+
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:.78rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--blue);
+}
+
+/* Highlighter swipe — signature element. Use sparingly. */
+.hl{
+  background:linear-gradient(105deg, transparent 2%, var(--mark) 8%, var(--mark) 92%, transparent 98%);
+  padding:0 .18em;
+  box-decoration-break:clone;
+  -webkit-box-decoration-break:clone;
+}
+
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 22px; }
+
+/* ---------- Header ---------- */
+header{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; padding:14px 22px; max-width:var(--maxw); margin:0 auto;
+}
+.brand{
+  font-family:var(--font-display); font-weight:700; font-size:1.15rem;
+  color:var(--ink); text-decoration:none; letter-spacing:-.01em;
+  display:flex; align-items:baseline; gap:8px;
+}
+.brand .tick{ color:var(--blue); font-family:var(--font-mono); font-size:.9rem; }
+.nav-links{ display:flex; gap:4px; align-items:center; flex-wrap:wrap; }
+.nav-links a{
+  font-family:var(--font-display); font-size:.92rem; font-weight:500;
+  text-decoration:none; color:var(--ink-soft);
+  padding:7px 11px; border-radius:7px;
+}
+.nav-links a:hover{ color:var(--ink); background:var(--mark-soft); }
+.nav-links a[aria-current="page"]{ color:var(--ink); background:var(--mark-soft); }
+.nav-links a.cta{
+  background:var(--blue); color:#fff; margin-left:6px;
+}
+.nav-links a.cta:hover{ background:var(--blue-deep); color:#fff; }
+.menu-btn{ display:none; }
+
+@media (max-width:760px){
+  .menu-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-display); font-weight:500; font-size:.95rem;
+    background:none; border:1px solid var(--line); border-radius:8px;
+    padding:8px 12px; color:var(--ink); cursor:pointer;
+  }
+  .nav-links{
+    display:none; position:absolute; top:100%; left:0; right:0;
+    flex-direction:column; align-items:stretch;
+    background:var(--paper-raised); border-bottom:1px solid var(--line);
+    padding:10px 16px 16px; box-shadow:var(--shadow);
+  }
+  .nav-links.open{ display:flex; }
+  .nav-links a{ padding:12px; font-size:1rem; }
+  .nav-links a.cta{ text-align:center; margin-left:0; margin-top:4px; }
+}
+
+/* ---------- Page sections ---------- */
+main section.page{ display:none; }
+main section.page.active{ display:block; }
+
+.hero{
+  padding:72px 0 64px;
+  border-bottom:1px solid var(--line);
+}
+.hero .wrap{ max-width:880px; }
+.hero h1{ margin:14px 0 18px; }
+.hero .lede{
+  font-size:1.22rem; color:var(--ink-soft); max-width:56ch;
+}
+.tutor-line{
+  margin-top:26px; display:flex; flex-direction:column; gap:6px;
+  font-family:var(--font-display); font-size:1.02rem;
+}
+.tutor-line .cred{ color:var(--ink-soft); font-weight:400; }
+.hero-ctas{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; }
+
+.btn{
+  display:inline-block; font-family:var(--font-display); font-weight:500;
+  font-size:.98rem; text-decoration:none; cursor:pointer;
+  padding:12px 22px; border-radius:8px; border:1px solid transparent;
+}
+.btn-primary{ background:var(--blue); color:#fff; }
+.btn-primary:hover{ background:var(--blue-deep); color:#fff; }
+.btn-ghost{ background:transparent; color:var(--blue); border-color:var(--line); }
+.btn-ghost:hover{ background:var(--mark-soft); color:var(--blue-deep); }
+
+.section{ padding:64px 0; }
+.section + .section{ border-top:1px solid var(--line); }
+.section-head{ margin-bottom:34px; }
+.section-head p{ color:var(--ink-soft); max-width:60ch; margin-top:8px; }
+
+/* How it works */
+.steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media (max-width:760px){ .steps{ grid-template-columns:1fr; } }
+.step{
+  background:var(--paper-raised); border:1px solid var(--line);
+  border-radius:var(--radius); padding:24px; box-shadow:var(--shadow);
+}
+.step .num{
+  font-family:var(--font-mono); font-size:.8rem; color:var(--blue);
+  letter-spacing:.1em;
+}
+.step h3{ margin:8px 0 8px; }
+.step p{ color:var(--ink-soft); font-size:.98rem; }
+
+/* Cards & chips */
+.card{
+  background:var(--paper-raised); border:1px solid var(--line);
+  border-radius:var(--radius); padding:26px; box-shadow:var(--shadow);
+}
+.chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; padding:0; list-style:none; }
+.chips li{
+  font-family:var(--font-mono); font-size:.78rem; letter-spacing:.03em;
+  border:1px solid var(--line); border-radius:999px; padding:5px 12px;
+  background:var(--paper); color:var(--ink);
+}
+
+/* Tutor profiles (About) */
+.profile{ display:grid; grid-template-columns:220px 1fr; gap:32px; align-items:start; }
+@media (max-width:760px){ .profile{ grid-template-columns:1fr; } }
+.avatar{
+  width:220px; height:220px; border-radius:var(--radius);
+  border:1px solid var(--line); box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:center;
+  background:var(--paper-raised); overflow:hidden;
+}
+@media (max-width:760px){ .avatar{ width:160px; height:160px; } }
+.avatar img{ width:100%; height:100%; object-fit:cover; }
+.avatar .initials{
+  font-family:var(--font-display); font-weight:700; font-size:3rem; color:var(--blue);
+}
+.profile .cred-line{
+  font-family:var(--font-mono); font-size:.82rem; color:var(--ink-soft);
+  margin:4px 0 14px; letter-spacing:.02em;
+}
+.profile-block + .profile-block{ margin-top:64px; padding-top:64px; border-top:1px solid var(--line); }
+
+/* Reviews */
+.review-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+@media (max-width:900px){ .review-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:640px){ .review-grid{ grid-template-columns:1fr; } }
+.review{
+  background:var(--paper-raised); border:1px solid var(--line);
+  border-radius:var(--radius); padding:20px 22px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:10px;
+}
+.review .stars{ color:var(--blue); letter-spacing:2px; font-size:.95rem; }
+.review blockquote{ font-size:.98rem; }
+.review .who{
+  font-family:var(--font-mono); font-size:.78rem; color:var(--ink-soft);
+  margin-top:auto;
+}
+.review .tag{
+  align-self:flex-start; font-family:var(--font-mono); font-size:.72rem;
+  background:var(--mark-soft); border-radius:5px; padding:2px 8px;
+}
+
+/* Forms */
+form.stack{ display:grid; gap:16px; max-width:620px; }
+label{ font-family:var(--font-display); font-weight:500; font-size:.95rem; display:block; margin-bottom:6px; }
+input, select, textarea{
+  width:100%; font-family:var(--font-body); font-size:1rem; color:var(--ink);
+  background:var(--paper-raised); border:1px solid var(--line);
+  border-radius:8px; padding:11px 13px;
+}
+textarea{ min-height:110px; resize:vertical; }
+input:focus, select:focus, textarea:focus{ outline:3px solid var(--blue); outline-offset:1px; }
+.hint{ font-size:.88rem; color:var(--ink-soft); margin-top:5px; }
+.form-note{
+  font-family:var(--font-mono); font-size:.82rem; padding:12px 14px;
+  border-radius:8px; border:1px solid var(--line); background:var(--paper-raised);
+}
+.form-note.ok{ border-color:var(--ok); color:var(--ok); }
+.form-note.err{ border-color:var(--err); color:var(--err); }
+
+/* Booking */
+.book-tabs{ display:flex; gap:8px; margin:22px 0 16px; flex-wrap:wrap; }
+.book-tabs button{
+  font-family:var(--font-display); font-weight:500; font-size:.95rem;
+  border:1px solid var(--line); background:var(--paper-raised); color:var(--ink);
+  border-radius:8px; padding:10px 18px; cursor:pointer;
+}
+.book-tabs button[aria-selected="true"]{
+  background:var(--blue); border-color:var(--blue); color:#fff;
+}
+.book-frame{
+  border:1px solid var(--line); border-radius:var(--radius);
+  overflow:hidden; box-shadow:var(--shadow); background:var(--paper-raised);
+}
+.book-frame iframe{ width:100%; height:680px; border:0; display:block; }
+.book-placeholder{
+  padding:40px 28px; text-align:center; color:var(--ink-soft);
+}
+.book-placeholder code{
+  font-family:var(--font-mono); font-size:.85rem; background:var(--mark-soft);
+  padding:2px 6px; border-radius:4px;
+}
+
+/* FAQ */
+details{
+  border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--paper-raised); padding:0; margin-bottom:12px;
+  box-shadow:var(--shadow);
+}
+summary{
+  cursor:pointer; font-family:var(--font-display); font-weight:500;
+  padding:16px 20px; list-style:none; display:flex; justify-content:space-between; gap:12px;
+}
+summary::-webkit-details-marker{ display:none; }
+summary::after{ content:"+"; font-family:var(--font-mono); color:var(--blue); }
+details[open] summary::after{ content:"–"; }
+details .a{ padding:0 20px 18px; color:var(--ink-soft); }
+
+/* CTA band */
+.cta-band{
+  margin:64px 0 0; padding:48px 0; border-top:1px solid var(--line);
+  background:var(--mark-soft);
+}
+.cta-band .wrap{ display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; }
+
+/* Footer */
+footer{
+  border-top:1px solid var(--line); padding:36px 0 48px; margin-top:64px;
+  color:var(--ink-soft); font-size:.95rem;
+}
+footer .wrap{ display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap; }
+footer .fbrand{ font-family:var(--font-display); font-weight:700; color:var(--ink); }
+footer nav{ display:flex; gap:16px; flex-wrap:wrap; }
+footer a{ color:var(--ink-soft); }
+
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="#/home"><span class="tick">∫</span><span data-bind="companyName">PLACEHOLDER</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#/about">About</a>
+      <a href="#/subjects">Subjects</a>
+      <a href="#/reviews">Reviews</a>
+      <a href="#/faq">FAQ</a>
+      <a class="cta" href="#/book">Book a session</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<section class="page" id="page-home">
+  <div class="hero gridbg">
+    <div class="wrap">
+      <p class="eyebrow">Tutoring · Math · Physics · Engineering</p>
+      <h1><span data-bind="companyName">PLACEHOLDER</span></h1>
+      <p class="lede">One-on-one tutoring that starts from <span class="hl">how you actually learn</span> — taught by two graduate-trained scientists who work problems with you, not at you.</p>
+      <div class="tutor-line" id="heroTutors"><!-- populated from CONFIG --></div>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#/book">Book a session</a>
+        <a class="btn btn-ghost" href="#/about">Meet the tutors</a>
+        <a class="btn btn-ghost" href="#/reviews">Read reviews</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How it works</p>
+        <h2>Every session is a worked problem</h2>
+        <p>We follow the same method we'd use at the whiteboard: find where the gap really is, build a plan around it, then practice until it holds.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">STEP 1</span>
+          <h3>Diagnose</h3>
+          <p>Your first session can be a diagnostic: we work a few problems together and map exactly where things break down — often earlier than you'd guess.</p>
+        </div>
+        <div class="step">
+          <span class="num">STEP 2</span>
+          <h3>Plan</h3>
+          <p>We build a session plan around your course, your timeline, and your goals — a test in two weeks looks different from a semester of support.</p>
+        </div>
+        <div class="step">
+          <span class="num">STEP 3</span>
+          <h3>Practice</h3>
+          <p>You do the work with a guide beside you. We explain, you solve, and we don't move on until you can do it without us.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Featured reviews</p>
+        <h2>From students and parents</h2>
+      </div>
+      <div class="review-grid" id="homeReviews"></div>
+    </div>
+  </div>
+
+  <div class="cta-band">
+    <div class="wrap">
+      <h2>Ready to get unstuck?</h2>
+      <a class="btn btn-primary" href="#/book">Book your first session</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="page" id="page-about">
+  <div class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">About us</p>
+        <h2>Two tutors, one method</h2>
+        <p>We met as scientists and became tutors for the same reason: the moment a concept finally clicks for someone is the best part of the job.</p>
+      </div>
+      <div id="profiles"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUBJECTS ============ -->
+<section class="page" id="page-subjects">
+  <div class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Subjects</p>
+        <h2>What we teach</h2>
+        <p>If your course is close to something below but not listed, ask — syllabi vary and we'll tell you honestly whether we're the right fit.</p>
+      </div>
+      <div id="subjectsList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOK ============ -->
+<section class="page" id="page-book">
+  <div class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Book a session</p>
+        <h2>Your first session</h2>
+        <p>You can start one of two ways. A <strong>diagnostic session</strong> is a low-pressure hour where we work problems together and map your strengths and gaps — you leave with a concrete plan even if we never meet again. Or, if you already know what you need, we <strong>jump straight into a regular session</strong> on your material. Either way, tell us about your situation below so we come prepared.</p>
+      </div>
+
+      <div class="card" style="margin-bottom:48px;">
+        <h3>Tell us about your situation</h3>
+        <p class="hint" style="margin-bottom:18px;">This goes straight to us. We'll reply by email, usually within a day.</p>
+        <form class="stack" id="intakeForm" novalidate>
+          <div>
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div>
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div>
+            <label for="f-level">Student level</label>
+            <select id="f-level" name="level">
+              <option>Middle school</option>
+              <option>High school</option>
+              <option selected>High school (AP / IB)</option>
+              <option>College / university</option>
+              <option>Adult learner</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-subject">What do you want tutoring in?</label>
+            <input id="f-subject" name="subject" type="text" placeholder="e.g., AP Calculus BC, intro mechanics, SAT math" required>
+          </div>
+          <div>
+            <label for="f-tutor">Preferred tutor</label>
+            <select id="f-tutor" name="tutor">
+              <option selected>No preference</option>
+              <option>Patrick</option>
+              <option>Antonio</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-situation">Describe your situation</label>
+            <textarea id="f-situation" name="situation" placeholder="Where are you in the course? What's going well, what isn't, and is there a deadline (test, final, application)?" required></textarea>
+          </div>
+          <div>
+            <label for="f-avail">Your availability</label>
+            <textarea id="f-avail" name="availability" placeholder="e.g., weekday evenings after 6pm CET, or weekend mornings" required></textarea>
+            <p class="hint">Include your timezone if you're not local.</p>
+          </div>
+          <button class="btn btn-primary" type="submit">Send inquiry</button>
+          <p class="form-note" id="intakeStatus" hidden></p>
+        </form>
+      </div>
+
+      <div class="section-head">
+        <h2>Or book a time directly</h2>
+        <p>Live availability, straight from our calendars. Pick a tutor, pick an open slot, and it's booked — you'll get a confirmation email with reschedule and cancel links.</p>
+      </div>
+      <div class="book-tabs" role="tablist" aria-label="Choose a tutor" id="bookTabs"></div>
+      <div class="book-frame" id="bookFrame"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="page" id="page-reviews">
+  <div class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Reviews</p>
+        <h2>What our students say</h2>
+      </div>
+      <div class="review-grid" id="allReviews"></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Worked with us? Leave a review</h2>
+        <p>Reviews are checked by us before they appear on the site.</p>
+      </div>
+      <form class="stack card" id="reviewForm" novalidate>
+        <div>
+          <label for="r-name">Your name (as it should appear)</label>
+          <input id="r-name" name="name" type="text" required>
+        </div>
+        <div>
+          <label for="r-role">You are a…</label>
+          <select id="r-role" name="role">
+            <option selected>Student</option>
+            <option>Parent</option>
+          </select>
+        </div>
+        <div>
+          <label for="r-tutor">Tutor</label>
+          <select id="r-tutor" name="tutor">
+            <option>Patrick</option>
+            <option>Antonio</option>
+            <option>Both</option>
+          </select>
+        </div>
+        <div>
+          <label for="r-rating">Rating</label>
+          <select id="r-rating" name="rating">
+            <option value="5" selected>★★★★★ — 5</option>
+            <option value="4">★★★★ — 4</option>
+            <option value="3">★★★ — 3</option>
+            <option value="2">★★ — 2</option>
+            <option value="1">★ — 1</option>
+          </select>
+        </div>
+        <div>
+          <label for="r-text">Your review</label>
+          <textarea id="r-text" name="text" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit for approval</button>
+        <p class="form-note" id="reviewStatus" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="page" id="page-faq">
+  <div class="section">
+    <div class="wrap" style="max-width:760px;">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common questions</h2>
+      </div>
+      <details>
+        <summary>Are sessions online or in person?</summary>
+        <div class="a">Sessions are online by default, over video call with a shared whiteboard. Ask about in-person options when you inquire.</div>
+      </details>
+      <details>
+        <summary>How much does a session cost?</summary>
+        <div class="a">Rates depend on subject and level — mention what you need in the inquiry form and we'll send pricing before anything is booked. No charge until you've confirmed.</div>
+      </details>
+      <details>
+        <summary>What happens in a diagnostic session?</summary>
+        <div class="a">We work a short set of problems together, chosen for your course. From how you approach them — not just whether you get them right — we map where the real gaps are and hand you a written plan. It's useful even if you decide not to continue with us.</div>
+      </details>
+      <details>
+        <summary>Do you assign homework?</summary>
+        <div class="a">If it helps, yes — short, targeted practice between sessions. Your actual coursework always comes first; we won't pile on.</div>
+      </details>
+      <details>
+        <summary>What if I need to cancel or reschedule?</summary>
+        <div class="a">Your booking confirmation email has reschedule and cancel links. We ask for 24 hours' notice when possible.</div>
+      </details>
+      <details>
+        <summary>Can parents sit in?</summary>
+        <div class="a">Always welcome, especially for younger students or a first session.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="fbrand" data-bind="companyName">PLACEHOLDER</div>
+      <div data-bind="footerTag">Math, physics & engineering tutoring — online, one-on-one.</div>
+      <div style="margin-top:8px;"><a data-bind-mail href="#">email us</a></div>
+    </div>
+    <nav aria-label="Footer">
+      <a href="#/about">About</a>
+      <a href="#/subjects">Subjects</a>
+      <a href="#/book">Book</a>
+      <a href="#/reviews">Reviews</a>
+      <a href="#/faq">FAQ</a>
+    </nav>
+  </div>
+  <div class="wrap" style="margin-top:20px; font-size:.85rem;">
+    <span>© <span id="year"></span> <span data-bind="companyName">PLACEHOLDER</span></span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   CONFIG — everything you'll edit lives here.
+   ============================================================ */
+const CONFIG = {
+  companyName: "PLACEHOLDER",
+  contactEmail: "hello@example.com",            // ← your real inbox
+  footerTag: "Math, physics & engineering tutoring — online, one-on-one.",
+
+  tutors: [
+    {
+      id: "patrick",
+      name: "Patrick Costa",
+      credential: "M.Sc. Astronomy, Leiden University",
+      photo: "",                                 // e.g. "img/patrick.jpg" — empty shows initials
+      bio: "Patrick is an astronomer specializing in instrumentation — building and modeling the detectors that make faint signals measurable. He has tutored calculus, physics, and SAT math for years, and brings the same approach to both: break the problem into pieces you can actually check. [PLACEHOLDER — replace with your final bio.]",
+      subjects: [
+        "AP Calculus AB/BC", "College calculus I–III", "AP Physics 1/2/C",
+        "College physics (mechanics, E&M)", "SAT math", "Astronomy"
+      ],
+      featuredReviewIds: ["p1","p2","p3"]
+    },
+    {
+      id: "antonio",
+      name: "Antonio D'Alessandro",
+      credential: "M.S. Robotics",
+      photo: "",
+      bio: "Antonio is a robotics engineer with an M.S. in Robotics. He teaches the math and programming that make machines move — linear algebra, dynamics, control, and code — with a builder's instinct for making abstract ideas concrete. [PLACEHOLDER — replace with Antonio's bio, institution, and details.]",
+      subjects: [
+        "Linear algebra", "Differential equations", "Programming (Python)",
+        "Dynamics & control [PLACEHOLDER]", "Robotics fundamentals [PLACEHOLDER]"
+      ],
+      featuredReviewIds: ["a1","a2","a3"]
+    }
+  ],
+
+  /* Reviews shown on the site. Approve submissions by copying them
+     from Firestore into this list. id must be unique. */
+  reviews: [
+    { id:"p1", tutor:"Patrick", author:"J. — parent", subject:"AP Calculus BC", rating:5,
+      text:"[PLACEHOLDER] Our daughter went from dreading calc to explaining it at dinner. Patient, structured, and honest about what to work on." },
+    { id:"p2", tutor:"Patrick", author:"M. — student", subject:"College physics", rating:5,
+      text:"[PLACEHOLDER] He doesn't just give you the answer — he makes you find it, and somehow that's faster." },
+    { id:"p3", tutor:"Patrick", author:"S. — student", subject:"SAT math", rating:5,
+      text:"[PLACEHOLDER] Score went up 120 points in two months. The diagnostic session alone was worth it." },
+    { id:"a1", tutor:"Antonio", author:"R. — student", subject:"Linear algebra", rating:5,
+      text:"[PLACEHOLDER] Antonio ties every abstract concept back to something a robot actually does. Eigenvalues finally make sense." },
+    { id:"a2", tutor:"Antonio", author:"K. — parent", subject:"Programming", rating:5,
+      text:"[PLACEHOLDER] My son built his first real project within a month. Antonio meets kids exactly where they are." },
+    { id:"a3", tutor:"Antonio", author:"D. — student", subject:"Differential equations", rating:5,
+      text:"[PLACEHOLDER] Clear, methodical, and genuinely kind when I was completely lost before my final." }
+  ],
+
+  /* Google Calendar appointment-schedule booking pages.
+     In Google Calendar: Create → Appointment schedule → Share → embed/link.
+     Paste the full booking-page URL for each tutor. Empty = setup card shows. */
+  booking: {
+    patrick: "",   // e.g. "https://calendar.app.google/XXXXXXXX"
+    antonio: ""
+  },
+
+  /* Firebase (Firestore) — paste your web app config from the
+     Firebase console. Leave apiKey empty to disable; forms will
+     fall back to a pre-filled email instead. */
+  firebase: {
+    apiKey: "",
+    authDomain: "",
+    projectId: "",
+    appId: ""
+  }
+};
+
+/* ============================================================
+   Rendering — no need to edit below unless changing layout.
+   ============================================================ */
+const $  = (s, el=document) => el.querySelector(s);
+const $$ = (s, el=document) => [...el.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function stars(n){ return "★".repeat(n) + "☆".repeat(5-n); }
+function initials(name){ return name.split(/\s+/).map(w=>w[0]).slice(0,2).join(""); }
+
+function reviewCard(r){
+  return `<article class="review">
+    <span class="tag">${esc(r.subject)} · ${esc(r.tutor)}</span>
+    <span class="stars" aria-label="${r.rating} out of 5 stars">${stars(r.rating)}</span>
+    <blockquote>“${esc(r.text)}”</blockquote>
+    <span class="who">${esc(r.author)}</span>
+  </article>`;
+}
+
+function avatarHTML(t){
+  return t.photo
+    ? `<img src="${esc(t.photo)}" alt="Photo of ${esc(t.name)}">`
+    : `<span class="initials" aria-hidden="true">${esc(initials(t.name))}</span><span class="sr-only">Photo of ${esc(t.name)} coming soon</span>`;
+}
+
+function render(){
+  // Bind company name / footer / email
+  $$('[data-bind="companyName"]').forEach(el => el.textContent = CONFIG.companyName);
+  $$('[data-bind="footerTag"]').forEach(el => el.textContent = CONFIG.footerTag);
+  $$('[data-bind-mail]').forEach(el => {
+    el.href = `mailto:${CONFIG.contactEmail}`;
+    el.textContent = CONFIG.contactEmail;
+  });
+  document.title = `${CONFIG.companyName} — Math, Physics & Engineering Tutoring`;
+  $("#year").textContent = new Date().getFullYear();
+
+  // Hero tutor lines
+  $("#heroTutors").innerHTML = CONFIG.tutors.map(t =>
+    `<div><strong>${esc(t.name)}</strong> <span class="cred">— ${esc(t.credential)}</span></div>`
+  ).join("");
+
+  // Home featured reviews: first featured review of each tutor + one more
+  const byId = Object.fromEntries(CONFIG.reviews.map(r=>[r.id,r]));
+  const featured = [CONFIG.tutors[0].featuredReviewIds[0], CONFIG.tutors[1].featuredReviewIds[0], CONFIG.tutors[0].featuredReviewIds[1]]
+    .map(id=>byId[id]).filter(Boolean);
+  $("#homeReviews").innerHTML = featured.map(reviewCard).join("");
+
+  // About profiles
+  $("#profiles").innerHTML = CONFIG.tutors.map(t => `
+    <div class="profile-block">
+      <div class="profile">
+        <div class="avatar">${avatarHTML(t)}</div>
+        <div>
+          <h3 style="font-size:1.5rem;">${esc(t.name)}</h3>
+          <p class="cred-line">${esc(t.credential)}</p>
+          <p>${esc(t.bio)}</p>
+          <p class="eyebrow" style="margin-top:20px;">Tutors</p>
+          <ul class="chips">${t.subjects.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
+        </div>
+      </div>
+      <div style="margin-top:28px;">
+        <p class="eyebrow" style="margin-bottom:12px;">What students say about ${esc(t.name.split(" ")[0])}</p>
+        <div class="review-grid">
+          ${t.featuredReviewIds.map(id=>byId[id]).filter(Boolean).map(reviewCard).join("")}
+        </div>
+      </div>
+    </div>`).join("");
+
+  // Subjects page
+  $("#subjectsList").innerHTML = CONFIG.tutors.map(t => `
+    <div class="card" style="margin-bottom:20px;">
+      <h3>${esc(t.name.split(" ")[0])} teaches</h3>
+      <ul class="chips">${t.subjects.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
+    </div>`).join("");
+
+  // All reviews
+  $("#allReviews").innerHTML = CONFIG.reviews.map(reviewCard).join("");
+
+  // Booking tabs
+  renderBooking(CONFIG.tutors[0].id);
+}
+
+function renderBooking(activeId){
+  $("#bookTabs").innerHTML = CONFIG.tutors.map(t =>
+    `<button role="tab" aria-selected="${t.id===activeId}" data-tutor="${t.id}">Book with ${esc(t.name.split(" ")[0])}</button>`
+  ).join("");
+  $$("#bookTabs button").forEach(b => b.addEventListener("click", ()=>renderBooking(b.dataset.tutor)));
+
+  const url = CONFIG.booking[activeId];
+  const t = CONFIG.tutors.find(t=>t.id===activeId);
+  $("#bookFrame").innerHTML = url
+    ? `<iframe src="${esc(url)}" title="Booking calendar for ${esc(t.name)}" loading="lazy"></iframe>`
+    : `<div class="book-placeholder">
+         <p><strong>${esc(t.name.split(" ")[0])}'s booking page isn't connected yet.</strong></p>
+         <p>In Google Calendar: <code>Create → Appointment schedule</code>, set availability, then paste the booking-page link into <code>CONFIG.booking.${esc(activeId)}</code>.</p>
+         <p>In the meantime, use the inquiry form above and we'll schedule by email.</p>
+       </div>`;
+}
+
+/* ---------- Router ---------- */
+const PAGES = ["home","about","subjects","book","reviews","faq"];
+function route(){
+  const hash = location.hash.replace(/^#\//,"") || "home";
+  const page = PAGES.includes(hash) ? hash : "home";
+  $$("main .page").forEach(s => s.classList.toggle("active", s.id === `page-${page}`));
+  $$(".nav-links a").forEach(a => {
+    const target = a.getAttribute("href").replace(/^#\//,"");
+    if (target === page) a.setAttribute("aria-current","page");
+    else a.removeAttribute("aria-current");
+  });
+  $("#navLinks").classList.remove("open");
+  $("#menuBtn").setAttribute("aria-expanded","false");
+  window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", route);
+
+$("#menuBtn").addEventListener("click", () => {
+  const open = $("#navLinks").classList.toggle("open");
+  $("#menuBtn").setAttribute("aria-expanded", String(open));
+});
+
+/* ---------- Firestore (lazy-loaded only if configured) ---------- */
+let dbPromise = null;
+function getDb(){
+  if (!CONFIG.firebase.apiKey) return null;
+  if (!dbPromise){
+    dbPromise = (async () => {
+      const appMod = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js");
+      const fsMod  = await import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js");
+      const app = appMod.initializeApp(CONFIG.firebase);
+      return { db: fsMod.getFirestore(app), fs: fsMod };
+    })();
+  }
+  return dbPromise;
+}
+
+async function submitToCollection(collection, data, statusEl, okMsg, mailSubject){
+  statusEl.hidden = false;
+  statusEl.className = "form-note";
+  statusEl.textContent = "Sending…";
+  const conn = getDb();
+  if (!conn){
+    // Fallback: open a pre-filled email
+    const body = Object.entries(data).map(([k,v])=>`${k}: ${v}`).join("\n");
+    location.href = `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(body)}`;
+    statusEl.className = "form-note ok";
+    statusEl.textContent = "Online submissions aren't connected yet — we opened an email draft for you instead.";
+    return;
+  }
+  try{
+    const { db, fs } = await conn;
+    await fs.addDoc(fs.collection(db, collection), { ...data, createdAt: fs.serverTimestamp() });
+    statusEl.className = "form-note ok";
+    statusEl.textContent = okMsg;
+  }catch(err){
+    console.error(err);
+    statusEl.className = "form-note err";
+    statusEl.textContent = `Something went wrong sending this. Email us directly at ${CONFIG.contactEmail}.`;
+  }
+}
+
+$("#intakeForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target;
+  if (!f.reportValidity()) return;
+  const data = Object.fromEntries(new FormData(f).entries());
+  submitToCollection("inquiries", data, $("#intakeStatus"),
+    "Sent. We'll reply by email, usually within a day.",
+    `Tutoring inquiry — ${data.name}`);
+  f.reset();
+});
+
+$("#reviewForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target;
+  if (!f.reportValidity()) return;
+  const data = Object.fromEntries(new FormData(f).entries());
+  data.rating = Number(data.rating);
+  data.approved = false;
+  submitToCollection("reviewSubmissions", data, $("#reviewStatus"),
+    "Thanks! Your review is in our approval queue and will appear once we've checked it.",
+    `Review submission — ${data.name}`);
+  f.reset();
+});
+
+render();
+route();
+</script>
+</body>
+</html>
