@@ -742,7 +742,7 @@ function render(){
         <div>
           <h3 style="font-size:1.5rem;">${esc(t.name)}</h3>
           <p class="cred-line">${esc(t.credential)}</p>
-          <p>${esc(t.bio)}</p>
+          ${(Array.isArray(t.bio) ? t.bio : [t.bio]).map(p=>`<p class="bio-p">${esc(p)}</p>`).join("")}
           <p class="eyebrow" style="margin-top:20px;">Tutors</p>
           <ul class="chips">${t.subjects.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
         </div>
