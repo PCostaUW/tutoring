@@ -630,7 +630,7 @@ const CONFIG = {
     {
       id: "patrick",
       name: "Patrick Costa",
-      credential: "M.Sc. candidate, Astronomy — Leiden University",
+      credential: "M.Sc. Astronomy — Leiden University",
       photo: "me_and_leia.jpg",   // path relative to index.html; empty string shows initials
       bio: [
         "I am completing a master's degree in astronomy at Leiden University in the Netherlands, following a bachelor's in physics and astronomy from the University of Washington. For the past three years I have tutored high school and college students in calculus, physics, and the SAT.",
@@ -640,15 +640,15 @@ const CONFIG = {
         "I offer an initial twenty-minute consultation at no charge, so that we may discuss the course, the timeline, and whether the arrangement is a good fit. If your student is struggling, or if you would simply like them better prepared for an upcoming examination, please send me a message describing the situation and we will arrange a time."
       ],
       subjects: [
-        "AP Calculus AB/BC", "College calculus I–III", "AP Physics 1/2/C",
-        "College physics (mechanics, E&M)", "SAT math", "Astronomy"
+        "AP Calculus AB/BC", "AP Physics 1/2/C", "College calculus I–IV", "Differential equations",
+        "College physics", "SAT/ACT", "Data science (Python)"
       ],
       featuredReviewIds: ["p1","p2","p3"]
     },
     {
       id: "antonio",
       name: "Antonio D'Alessandro",
-      credential: "M.S. Robotics",
+      credential: "M.Sc. Robotics",
       photo: "AJ_with_Robot_Arm.jpg",
       bio: [
          "Hi everyone, my name is Antonio, and I've spent the better part of the last 9 years learning new things in the fields of math and science. I knew I had a passion for physics when I did my first kinematics problem in the 11th grade, but what I didn't know at that point is that I would come to love teaching it to others even more. I began tutoring as a high school student, and since then I've accumulated countless hours helping prepare students for AP exams in Physics and Calculus. I love discussing technical topics, and breaking down concepts and watching others understand them for the first time is a feeling that will never get old for me.",
@@ -665,12 +665,12 @@ const CONFIG = {
   /* Reviews shown on the site. Approve submissions by copying them
      from Firestore into this list. id must be unique. */
   reviews: [
-    { id:"p1", tutor:"Patrick", author:"J. — parent", subject:"AP Calculus BC", rating:5,
-      text:"[PLACEHOLDER] Our daughter went from dreading calc to explaining it at dinner. Patient, structured, and honest about what to work on." },
-    { id:"p2", tutor:"Patrick", author:"M. — student", subject:"College physics", rating:5,
-      text:"[PLACEHOLDER] He doesn't just give you the answer — he makes you find it, and somehow that's faster." },
-    { id:"p3", tutor:"Patrick", author:"S. — student", subject:"SAT math", rating:5,
-      text:"[PLACEHOLDER] Score went up 120 points in two months. The diagnostic session alone was worth it." },
+    { id:"p1", tutor:"Patrick", author:"H. — student", subject:"AP Calculus BC", rating:5,
+      text:"He went above and beyond to help me prepare for my test. I feel significantly more confident and was able to be honest about my understanding without judjment which helped me succeed." },
+    { id:"p2", tutor:"Patrick", author:"L. — student", subject:"College physics", rating:5,
+      text:"I feel like I actually understand the concepts that I had no idea how to solve when I first learned them. " },
+    { id:"p3", tutor:"Patrick", author:"L. — student", subject:"Calculus II", rating:5,
+      text:"I loved his personality; he was good at explaining but also letting me explain. Overall, great experience! I feel like I actually know how to solve this kind of problem now." },
     { id:"a1", tutor:"Antonio", author:"R. — student", subject:"Linear algebra", rating:5,
       text:"[PLACEHOLDER] Antonio ties every abstract concept back to something a robot actually does. Eigenvalues finally make sense." },
     { id:"a2", tutor:"Antonio", author:"K. — parent", subject:"Programming", rating:5,
