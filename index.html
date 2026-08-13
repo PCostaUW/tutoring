@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>True North Tutoring — Math, Physics, Engineering & SAT/ACT Tutoring</title>
-<meta name="description" content="One-on-one tutoring in math, physics, engineering, and SAT/ACT from two graduate-trained tutors. Start with a free 20-minute call."><link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="description" content="One-on-one tutoring in math, physics, engineering, and SAT/ACT from two graduate-trained tutors. Start with a free 20-minute call.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -218,7 +219,8 @@ main section.page.active{ display:block; }
 .profile-block + .profile-block{ margin-top:64px; padding-top:64px; border-top:1px solid var(--line); }
 .bio-p + .bio-p{ margin-top:14px; }
 
-/* Reviews */
+/* Reviews — display styles kept so the commented-out review
+   sections still render correctly when re-enabled later. */
 .review-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
 @media (max-width:900px){ .review-grid{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:640px){ .review-grid{ grid-template-columns:1fr; } }
@@ -326,7 +328,9 @@ footer a{ color:var(--ink-soft); }
     <div class="nav-links" id="navLinks">
       <a href="#/about">About</a>
       <a href="#/subjects">Subjects</a>
+      <!-- REVIEWS HIDDEN: restore this nav link when reviews go live
       <a href="#/reviews">Reviews</a>
+      -->
       <a href="#/faq">FAQ</a>
       <a class="cta" href="#/book">Book a session</a>
     </div>
@@ -346,7 +350,9 @@ footer a{ color:var(--ink-soft); }
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#/book">Book a session</a>
         <a class="btn btn-ghost" href="#/about">Meet the tutors</a>
+        <!-- REVIEWS HIDDEN: restore this button when reviews go live
         <a class="btn btn-ghost" href="#/reviews">Read reviews</a>
+        -->
       </div>
     </div>
   </div>
@@ -378,6 +384,8 @@ footer a{ color:var(--ink-soft); }
     </div>
   </div>
 
+  <!-- REVIEWS HIDDEN: featured reviews section. Restore this block and the
+       matching #homeReviews code in render() when reviews go live.
   <div class="section">
     <div class="wrap">
       <div class="section-head">
@@ -387,11 +395,12 @@ footer a{ color:var(--ink-soft); }
       <div class="review-grid" id="homeReviews"></div>
     </div>
   </div>
+  -->
 
   <div class="cta-band">
     <div class="wrap">
       <h2>Ready to get unstuck?</h2>
-      <a class="btn btn-primary" href="#/book">Book your first session</a>
+      <a class="btn btn-primary" href="#/book">Book a free call</a>
     </div>
   </div>
 </section>
@@ -417,7 +426,7 @@ footer a{ color:var(--ink-soft); }
       <div class="section-head">
         <p class="eyebrow">Subjects</p>
         <h2>What we teach</h2>
-        <p>If your course is close to something below but not listed, ask — syllabi vary and we'll tell you honestly whether we're the right fit.</p>
+        <p>If your course is close to something below but not listed, just ask. Syllabi vary, and we'll tell you honestly whether we're the right fit.</p>
       </div>
       <div id="subjectsList"></div>
     </div>
@@ -431,7 +440,8 @@ footer a{ color:var(--ink-soft); }
       <div class="section-head">
         <p class="eyebrow">Book a session</p>
         <h2>Your first session</h2>
-            <p>Every family starts with a free twenty-minute call. We ask where your student thinks they're struggling, what they're aiming for, and how much time there is to get there, then explain how we'd approach it and what our rates are. There's no obligation, and if we're not the right fit we'll say so. Tell us about your situation below and we'll set up the call.</p>      </div>
+        <p>Every family starts with a free twenty-minute call. We ask where your student thinks they're struggling, what they're aiming for, and how much time there is to get there, then explain how we'd approach it and what our rates are. There's no obligation, and if we're not the right fit we'll say so. Tell us about your situation below and we'll set up the call.</p>
+      </div>
 
       <div class="card" style="margin-bottom:48px;">
         <h3>Tell us about your situation</h3>
@@ -483,7 +493,7 @@ footer a{ color:var(--ink-soft); }
 
       <div class="section-head">
         <h2>Or book a time directly</h2>
-        <p>Live availability, straight from our calendars. Pick a tutor, pick an open slot, and it's booked — you'll get a confirmation email with reschedule and cancel links.</p>
+        <p>Live availability, straight from our calendars. Pick a tutor, pick an open slot, and it's booked. You'll get a confirmation email with reschedule and cancel links.</p>
       </div>
       <div class="book-tabs" role="tablist" aria-label="Choose a tutor" id="bookTabs"></div>
       <div class="book-frame" id="bookFrame"></div>
@@ -491,8 +501,14 @@ footer a{ color:var(--ink-soft); }
   </div>
 </section>
 
-<!-- ============ REVIEWS ============ -->
+<!-- ============ REVIEWS ============
+     The review DISPLAY grid below is commented out. The submission form
+     is still live at #/reviews so you can send past students a direct
+     link. Restore the display block and the #allReviews code in render()
+     when you're ready to publish reviews.
+     ======================================== -->
 <section class="page" id="page-reviews">
+  <!-- REVIEWS HIDDEN: published review list
   <div class="section">
     <div class="wrap">
       <div class="section-head">
@@ -502,11 +518,13 @@ footer a{ color:var(--ink-soft); }
       <div class="review-grid" id="allReviews"></div>
     </div>
   </div>
+  -->
   <div class="section">
     <div class="wrap">
       <div class="section-head">
-        <h2>Worked with us? Leave a review</h2>
-        <p>Reviews are checked by us before they appear on the site.</p>
+        <p class="eyebrow">Leave a review</p>
+        <h2>Worked with us? Tell us how it went</h2>
+        <p>Reviews are checked by us before they appear anywhere.</p>
       </div>
       <form class="stack card" id="reviewForm" novalidate>
         <div>
@@ -558,20 +576,20 @@ footer a{ color:var(--ink-soft); }
         <h2>Common questions</h2>
       </div>
       <details>
+        <summary>What happens on the free call?</summary>
+        <div class="a">It takes about twenty minutes. We ask your student where they think they're struggling, what they're aiming for, and how much time there is to get there. Then we explain how we'd approach it, how often we'd meet, and what it costs. If we don't think we're the right tutors for your student, we'll tell you.</div>
+      </details>
+      <details>
+        <summary>How much does a session cost?</summary>
+        <div class="a">Rates depend on subject and level, and we'll give you a number on the free call before anything is booked.</div>
+      </details>
+      <details>
         <summary>Are sessions online or in person?</summary>
         <div class="a">Sessions are online by default, over video call with a shared whiteboard. Ask about in-person options when you inquire.</div>
       </details>
       <details>
-        <summary>How much does a session cost?</summary>
-        <div class="a">Rates depend on subject and level, and we'll give you a number on the free call before anything is booked. </div>
-      </details>
-      <details>
-         <summary>What happens on the free call?</summary>
-         <div class="a">It takes about twenty minutes. We ask your student where they think they're struggling, what they're aiming for, and how much time there is to get there. Then we explain how we'd approach it, how often we'd meet, and what it costs. If we don't think we're the right tutors for your student, we'll tell you.</div>
-      </details>
-      <details>
         <summary>Do you assign homework?</summary>
-        <div class="a">If it helps, yes — short, targeted practice between sessions. Your actual coursework always comes first; we won't pile on.</div>
+        <div class="a">After each session we send a short written summary of what we covered and what to practice before the next one. Your student's actual coursework always comes first, so the practice we set is short and targeted.</div>
       </details>
       <details>
         <summary>What if I need to cancel or reschedule?</summary>
@@ -598,8 +616,8 @@ footer a{ color:var(--ink-soft); }
       <a href="#/about">About</a>
       <a href="#/subjects">Subjects</a>
       <a href="#/book">Book</a>
-      <a href="#/reviews">Reviews</a>
       <a href="#/faq">FAQ</a>
+      <a href="#/reviews">Leave a review</a>
     </nav>
   </div>
   <div class="wrap" style="margin-top:20px; font-size:.85rem;">
@@ -650,7 +668,7 @@ const CONFIG = {
       photo: "AJ_with_Robot_Arm.jpg",
       bio: [
          "Hi everyone, my name is Antonio, and I've spent the better part of the last 9 years learning new things in the fields of math and science. I knew I had a passion for physics when I did my first kinematics problem in the 11th grade, but what I didn't know at that point is that I would come to love teaching it to others even more. I began tutoring as a high school student, and since then I've accumulated countless hours helping prepare students for AP exams in Physics and Calculus. I love discussing technical topics, and breaking down concepts and watching others understand them for the first time is a feeling that will never get old for me.",
-         "My approach to tutoring relies heavily on a \"learn by doing\" philosophy. Over the years I've developed countless ways of explaining concepts verbally and using visual aids to deepen students' conceptual understandings. But I firmly believe the only true way to learn is to solve a problem for oneself. Therefore I typically structure my lessons with an initial assessment of the student's knowledge, and then follow it with some conceptual explanation and a heavy amount of guided practice. I have a wealth of practice material at my disposal in both physics and math, and I use it to tailor each lesson to a student's specific needs.",
+         "My approach to tutoring relies heavily on a \u201Clearn by doing\u201D philosophy. Over the years I've developed countless ways of explaining concepts verbally and using visual aids to deepen students' conceptual understandings. But I firmly believe the only true way to learn is to solve a problem for oneself. Therefore I typically structure my lessons with an initial assessment of the student's knowledge, and then follow it with some conceptual explanation and a heavy amount of guided practice. I have a wealth of practice material at my disposal in both physics and math, and I use it to tailor each lesson to a student's specific needs.",
          "I graduated cum laude from Northeastern University with a Bachelor of Science in Mechanical Engineering and a Master of Science in Robotics. I currently work as a mechanical engineer, and my job forces me to call on my advanced physics and math knowledge on a daily basis. I've been a tutor in both AP Physics and AP Calculus for one year, mainly in an online setting, and I've received several 5-star reviews from my prior students. I'm looking forward to helping as many students as I can ace their tests and AP exams!"
       ],
       subjects: [
@@ -660,45 +678,36 @@ const CONFIG = {
     }
   ],
 
-  /* Reviews shown on the site. Approve submissions by copying them
-     from Firestore into this list. id must be unique. */
+  /* Reviews. Nothing in this list is displayed right now — every review
+     section on the site is commented out. Kept here so it's ready when
+     you switch the display back on. Approve a submission by copying it
+     from Firestore into this list; id must be unique. */
   reviews: [
     { id:"p1", tutor:"Patrick", author:"H. — student", subject:"AP Calculus BC", rating:5,
-      text:"He went above and beyond to help me prepare for my test. I feel significantly more confident and was able to be honest about my understanding without judjment which helped me succeed." },
+      text:"He went above and beyond to help me prepare for my test. I feel significantly more confident and was able to be honest about my understanding without judgment which helped me succeed." },
     { id:"p2", tutor:"Patrick", author:"L. — student", subject:"College physics", rating:5,
-      text:"I feel like I actually understand the concepts that I had no idea how to solve when I first learned them. " },
+      text:"I feel like I actually understand the concepts that I had no idea how to solve when I first learned them." },
     { id:"p3", tutor:"Patrick", author:"L. — student", subject:"Calculus II", rating:5,
-      text:"I loved his personality; he was good at explaining but also letting me explain. Overall, great experience! I feel like I actually know how to solve this kind of problem now." },
-    { id:"a1", tutor:"Antonio", author:"R. — student", subject:"Linear algebra", rating:5,
-      text:"[PLACEHOLDER] Antonio ties every abstract concept back to something a robot actually does. Eigenvalues finally make sense." },
-    { id:"a2", tutor:"Antonio", author:"K. — parent", subject:"Programming", rating:5,
-      text:"[PLACEHOLDER] My son built his first real project within a month. Antonio meets kids exactly where they are." },
-    { id:"a3", tutor:"Antonio", author:"D. — student", subject:"Differential equations", rating:5,
-      text:"[PLACEHOLDER] Clear, methodical, and genuinely kind when I was completely lost before my final." }
+      text:"I loved his personality; he was good at explaining but also letting me explain. Overall, great experience! I feel like I actually know how to solve this kind of problem now." }
   ],
 
   /* Google Calendar appointment-schedule booking pages.
      In Google Calendar: Create → Appointment schedule → Share → copy link.
      Empty = setup card shows instead. */
   booking: {
-    patrick: "https://calendar.app.google/gXNGU3onNYJawDK39",   // e.g. "https://calendar.app.google/XXXXXXXX"
+    patrick: "https://calendar.app.google/gXNGU3onNYJawDK39",
     antonio: "https://calendar.app.google/sZcVr3xDJB9B5Rpk8"
   },
 
-  /* Firebase (Firestore) — paste your web app config from the
-     Firebase console. Leave apiKey empty to disable; forms will
-     fall back to a pre-filled email instead. */
+  /* Firebase (Firestore) — from the Firebase console.
+     Leave apiKey empty to disable; forms then fall back to email. */
   firebase: {
     apiKey: "AIzaSyCpeEXOHE6Zh3gbS-LyoofqcqwuploS3jI",
-   authDomain: "truenorthtutoring-1397d.firebaseapp.com",
-
-  projectId: "truenorthtutoring-1397d",
-
-  storageBucket: "truenorthtutoring-1397d.firebasestorage.app",
-
-  messagingSenderId: "635587042261",
-
-  appId: "1:635587042261:web:11f6b284a3cf7489b7bb5c"
+    authDomain: "truenorthtutoring-1397d.firebaseapp.com",
+    projectId: "truenorthtutoring-1397d",
+    storageBucket: "truenorthtutoring-1397d.firebasestorage.app",
+    messagingSenderId: "635587042261",
+    appId: "1:635587042261:web:11f6b284a3cf7489b7bb5c"
   }
 };
 
@@ -748,11 +757,14 @@ function render(){
     `<div><strong>${esc(t.name)}</strong> <span class="cred">— ${esc(t.credential)}</span></div>`
   ).join("");
 
-  // Home featured reviews
   const byId = Object.fromEntries(CONFIG.reviews.map(r=>[r.id,r]));
+
+  /* REVIEWS HIDDEN: home featured reviews. Uncomment together with the
+     #homeReviews block in the HOME section.
   const featured = [CONFIG.tutors[0].featuredReviewIds[0], CONFIG.tutors[1].featuredReviewIds[0], CONFIG.tutors[0].featuredReviewIds[1]]
     .map(id=>byId[id]).filter(Boolean);
   $("#homeReviews").innerHTML = featured.map(reviewCard).join("");
+  */
 
   // About profiles
   $("#profiles").innerHTML = CONFIG.tutors.map(t => `
@@ -767,12 +779,7 @@ function render(){
           <ul class="chips">${t.subjects.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
         </div>
       </div>
-      <div style="margin-top:28px;">
-        <p class="eyebrow" style="margin-bottom:12px;">What students say about ${esc(t.name.split(" ")[0])}</p>
-        <div class="review-grid">
-          ${t.featuredReviewIds.map(id=>byId[id]).filter(Boolean).map(reviewCard).join("")}
-        </div>
-      </div>
+      ${profileReviews(t, byId)}
     </div>`).join("");
 
   // Subjects page
@@ -782,11 +789,28 @@ function render(){
       <ul class="chips">${t.subjects.map(s=>`<li>${esc(s)}</li>`).join("")}</ul>
     </div>`).join("");
 
-  // All reviews
+  /* REVIEWS HIDDEN: full review list on the Reviews page. Uncomment
+     together with the #allReviews block in the REVIEWS section.
   $("#allReviews").innerHTML = CONFIG.reviews.map(reviewCard).join("");
+  */
 
   // Booking tabs
   renderBooking(CONFIG.tutors[0].id);
+}
+
+/* REVIEWS HIDDEN: returns the three featured reviews under each bio on
+   the About page. Returning "" hides them. To switch reviews back on,
+   delete the `return "";` line below. */
+function profileReviews(t, byId){
+  return "";
+  /* eslint-disable no-unreachable */
+  return `
+      <div style="margin-top:28px;">
+        <p class="eyebrow" style="margin-bottom:12px;">What students say about ${esc(t.name.split(" ")[0])}</p>
+        <div class="review-grid">
+          ${t.featuredReviewIds.map(id=>byId[id]).filter(Boolean).map(reviewCard).join("")}
+        </div>
+      </div>`;
 }
 
 function renderBooking(activeId){
