@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>True North Tutoring — Math, Physics, Engineering & SAT/ACT Tutoring</title>
-<meta name="description" content="One-on-one tutoring in math, physics, engineering, and SAT/ACT from two graduate-trained tutors. Start with a free 20-minute call.">
+<title>True North Tutoring — Math, Physics, Engineering, Biology, Chemistry, and SAT Tutoring</title>
+<meta name="description" content="One-on-one tutoring in math, physics, engineering, biology, chemistry, and SAT. Start with a free 20-minute call.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -343,9 +343,9 @@ footer a{ color:var(--ink-soft); }
 <section class="page" id="page-home">
   <div class="hero gridbg">
     <div class="wrap">
-      <p class="eyebrow">Math · Physics · Engineering · SAT/ACT</p>
+      <p class="eyebrow">Math · Physics · Engineering · Chemistry · Biology · SAT</p>
       <h1><span data-bind="companyName">True North Tutoring</span></h1>
-      <p class="lede">Two tutors, not an agency.</p>
+      <p class="lede">A small group of scientists with a passion for helping students reach their goals. </p>
       <div class="tutor-line" id="heroTutors"><!-- populated from CONFIG --></div>
       <div class="hero-ctas">
         <a class="btn btn-primary" href="#/book">Book a session</a>
@@ -412,7 +412,7 @@ footer a{ color:var(--ink-soft); }
       <div class="section-head">
         <p class="eyebrow">About us</p>
         <h2>Meet the tutors</h2>
-        <p>An astronomer and an engineer, both of whom still use this material daily.</p>
+        <p>Scientists, all of whom still use this material daily.</p>
       </div>
       <div id="profiles"></div>
     </div>
@@ -673,6 +673,21 @@ const CONFIG = {
       ],
       subjects: [
         "AP Physics 1-2", "AP Physics C Mechanics and E&M", "IB Physics", "AP Calculus AB", "College Physics 1-2", "College Calculus 1", "SAT Math"
+      ],
+      featuredReviewIds: ["a1","a2","a3"]
+    },
+     {
+      id: "valentina",
+      name: "Valentina Moreno Mitchell",
+      credential: "MScR Biomedical Sciences",
+      photo: "valentina_tutor.jpg",
+      bio: [
+         "Hi everyone! I'm Valentina, and I've spent over five years immersed in biology and chemistry, first as a student and now as a researcher. I've always been drawn to the natural sciences, and I look forward to helping other students make these concepts click the way they did for me.",
+         "My approach is built on the idea that science makes sense once you connect it to something real. Biology and chemistry are often taught as lists of concepts to memorize, and that's exactly where students get stuck. Instead, I focus on inquiry-based learning and real-world applications: I'll ask the questions that walk you through the reasoning, so the understanding lasts beyond the exam. Having taken these courses throughout my own academic career, I know the feeling of staring at a topic that seems impossibly dense and I can help break it into the right pieces so it starts to hold together.",
+         "I hold a Bachelor's degree in Microbiology from the University of Washington and a Master of Science by Research in Biomedical Sciences from the University of Edinburgh, where my work spanned cancer cell biology and human tissue research. I currently work in a research role, which means the science I teach is science I use. My coursework covered chemistry, biochemistry, genetics, immunology, and virology, so I'm comfortable across the full range of high school biology and chemistry topics. I also speak fluent Spanish and can tutor in either language."
+      ],
+      subjects: [
+        "AP/College chemistry", "AP/college biology", "Biochemistry"
       ],
       featuredReviewIds: ["a1","a2","a3"]
     }
