@@ -491,12 +491,16 @@ footer a{ color:var(--ink-soft); }
         </form>
       </div>
 
+      <!-- DIRECT BOOKING HIDDEN: the "book a time directly" calendar is
+           commented out. Restore this block AND the renderBooking() call
+           in render() (see the note there) to bring back live self-booking.
       <div class="section-head">
         <h2>Or book a time directly</h2>
         <p>Live availability, straight from our calendars. Pick a tutor, pick an open slot, and it's booked. You'll get a confirmation email with reschedule and cancel links.</p>
       </div>
       <div class="book-tabs" role="tablist" aria-label="Choose a tutor" id="bookTabs"></div>
       <div class="book-frame" id="bookFrame"></div>
+      -->
     </div>
   </div>
 </section>
@@ -689,7 +693,7 @@ const CONFIG = {
       subjects: [
         "AP/College chemistry", "AP/college biology", "Biochemistry"
       ],
-      featuredReviewIds: ["a1","a2","a3"]
+      featuredReviewIds: ["v1","v2","v3"]
     }
   ],
 
@@ -707,8 +711,8 @@ const CONFIG = {
   ],
 
   /* Google Calendar appointment-schedule booking pages.
-     In Google Calendar: Create → Appointment schedule → Share → copy link.
-     Empty = setup card shows instead. */
+     Currently UNUSED — direct booking is commented out on the Book page.
+     Kept here so they're ready when you re-enable self-booking. */
   booking: {
     patrick: "https://calendar.app.google/gXNGU3onNYJawDK39",
     antonio: "https://calendar.app.google/sZcVr3xDJB9B5Rpk8"
@@ -809,8 +813,10 @@ function render(){
   $("#allReviews").innerHTML = CONFIG.reviews.map(reviewCard).join("");
   */
 
-  // Booking tabs
+  /* DIRECT BOOKING HIDDEN: builds the tutor tabs and calendar iframe.
+     Uncomment this together with the booking block on the Book page.
   renderBooking(CONFIG.tutors[0].id);
+  */
 }
 
 /* REVIEWS HIDDEN: returns the three featured reviews under each bio on
@@ -828,6 +834,10 @@ function profileReviews(t, byId){
       </div>`;
 }
 
+/* DIRECT BOOKING HIDDEN: builds the tutor tabs and calendar iframe.
+   Unused while direct booking is commented out, but kept intact so
+   re-enabling is a two-place uncomment (this call in render(), and the
+   markup on the Book page). */
 function renderBooking(activeId){
   $("#bookTabs").innerHTML = CONFIG.tutors.map(t =>
     `<button role="tab" aria-selected="${t.id===activeId}" data-tutor="${t.id}">Book with ${esc(t.name.split(" ")[0])}</button>`
